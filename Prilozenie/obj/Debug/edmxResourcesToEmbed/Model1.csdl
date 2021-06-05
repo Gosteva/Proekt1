@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ddautovModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="City">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="City1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Telephone_subscribers" Relationship="Self.FK_Telephone_subscribers_City" FromRole="City" ToRole="Telephone_subscribers" />
+  </EntityType>
+  <EntityType Name="Street">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Street1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Telephone_subscribers" Relationship="Self.FK_Telephone_subscribers_Street" FromRole="Street" ToRole="Telephone_subscribers" />
+  </EntityType>
+  <EntityType Name="Telephone_subscribers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="FirstName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MiddleName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="Double" />
+    <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="id_City" Type="Int32" />
+    <Property Name="id_Street" Type="Int32" />
+    <Property Name="House" Type="Int32" />
+    <Property Name="Kvartira" Type="Int32" />
+    <NavigationProperty Name="City" Relationship="Self.FK_Telephone_subscribers_City" FromRole="Telephone_subscribers" ToRole="City" />
+    <NavigationProperty Name="Street" Relationship="Self.FK_Telephone_subscribers_Street" FromRole="Telephone_subscribers" ToRole="Street" />
+  </EntityType>
+  <Association Name="FK_Telephone_subscribers_City">
+    <End Role="City" Type="Self.City" Multiplicity="0..1" />
+    <End Role="Telephone_subscribers" Type="Self.Telephone_subscribers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Telephone_subscribers">
+        <PropertyRef Name="id_City" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Telephone_subscribers_Street">
+    <End Role="Street" Type="Self.Street" Multiplicity="0..1" />
+    <End Role="Telephone_subscribers" Type="Self.Telephone_subscribers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Street">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Telephone_subscribers">
+        <PropertyRef Name="id_Street" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ddautovEntities4" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="City" EntityType="Self.City" />
+    <EntitySet Name="Street" EntityType="Self.Street" />
+    <EntitySet Name="Telephone_subscribers" EntityType="Self.Telephone_subscribers" />
+    <AssociationSet Name="FK_Telephone_subscribers_City" Association="Self.FK_Telephone_subscribers_City">
+      <End Role="City" EntitySet="City" />
+      <End Role="Telephone_subscribers" EntitySet="Telephone_subscribers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Telephone_subscribers_Street" Association="Self.FK_Telephone_subscribers_Street">
+      <End Role="Street" EntitySet="Street" />
+      <End Role="Telephone_subscribers" EntitySet="Telephone_subscribers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
