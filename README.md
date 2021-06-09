@@ -463,7 +463,7 @@ namespace Prilozenie
 ```
 
 #### Окно добавления и редактирования:
-![AddAndEditWindow](./img/AddAndEditWindow.png)
+![AddAndEditWindow](./img/AddWindow.png)
 
 ##### Код разметки окна:
 ```xml
